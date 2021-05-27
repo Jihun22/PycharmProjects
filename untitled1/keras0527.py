@@ -6,3 +6,19 @@ from  keras.datasets import imdb
 print(train_data[0])
 print(train_labels[0])
 print(max([max(sequence) for sequence in train_data]))
+
+# 정수 시퀀스 이진 행렬로 인코딩하기
+import numpy as np
+
+def vectorize_sequences(sequences, dimension = 10000):
+    results = np.zeros((len(sequences), dimension))
+    for i , sequence in enumerate(sequences):
+        results[i,sequence] = 1.
+        return  results
+x_train = vectorize_sequences(train_data)
+x_test = vectorize_sequences(test_data)
+
+print(x_train[0])
+#레이블을 벡터로 바꿈
+x_train = np.asarray(train_labels).astype('float32')
+x_test = np.asarray(test_labels).astype('float32')
