@@ -71,4 +71,12 @@ history  = model.fit(partial_x_train,
                      batch_size=512,
                      validation_data=(x_val, y_val))
 
+history_dict = history.history
+print(history_dict.keys())
 
+#훈련과 검증 손실 그리기
+
+import matplotlib.pyplot as plt
+
+history_dict = history.history
+loss = history_dict['']
