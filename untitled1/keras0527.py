@@ -92,3 +92,17 @@ plt.ylabel('Loss')
 plt.legend()
 
 plt.show()
+
+# 훈련과 검증 정확도 그리기
+plt.clf() #그래프를 초기화
+acc = history_dict['acc']
+val_acc = history_dict['val_acc']
+
+plt.plot(epochs, acc, 'bo',label = 'Training acc')
+plt.plot(epochs, val_acc,'b', label= 'Validation acc')
+plt.title('Training and validation accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+
+plt.show()
