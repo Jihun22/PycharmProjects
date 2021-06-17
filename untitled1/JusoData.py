@@ -1,3 +1,4 @@
+import folium as folium
 import pandas as pd
 
 CB = pd.read_csv("C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/CoffeeBean.csv", encoding='CP949', index_col=0, header=0,
@@ -53,3 +54,7 @@ print("Addr2:",addr2)  # 작업 내용 확인용 출력
 addr2 = pd.DataFrame(addr2 , columns=['address2'])
 CB2 = pd.concat([CB,addr2], axis =1)
 print("CB2:",CB2.head)
+CB2.to_csv('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/CoffeeBean_3.csv',encoding ='CP949',index = False)
+
+map_osm = folium.Map(location = [37.559978,126.975291], zoom_start = 16)
+map_osm.save('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map3.html')
