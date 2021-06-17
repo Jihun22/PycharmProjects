@@ -58,3 +58,12 @@ CB2.to_csv('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/CoffeeBean
 
 map_osm = folium.Map(location = [37.559978,126.975291], zoom_start = 16)
 map_osm.save('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map3.html')
+
+CB_geoData = pd.read_csv('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/CB_geo2.shp.csv',encoding='cp949',engine='python')
+map_CB = folium.Map(location= [37.560284,126.975334],zoom_start=15)
+for i, store in CB_geoData.iterrows():
+     folium.Marker(location = [store['위도'], store['경도']], popup =
+                        store['store'], icon = folium.Icon(color = 'red',
+                        icon = 'star')).add_to(map_CB)
+
+map_CB.save('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map_CB3.html')
