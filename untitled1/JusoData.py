@@ -66,4 +66,7 @@ for i, store in CB_geoData.iterrows():
                         store['store'], icon = folium.Icon(color = 'red',
                         icon = 'star')).add_to(map_CB)
 
-map_CB.save('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map_CB3.html')
+map_CB.save('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map_CB3.html') #완성된 지오맵 저장
+#지도에 매장위치 표시
+import webbrowser
+webbrowser.open('C:/Users/ik533/Desktop/머신러닝프로젝트/9장_data/map_CB3.html')
