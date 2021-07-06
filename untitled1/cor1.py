@@ -25,4 +25,5 @@ while(True):
             break
 
 cap.release()
-cv2.destroyAllWindows('DI')
+cv2.destroyAllWindows()
+cv2.videowriter('test') #cv2.VideoWriter(outputFile, fourcc, frame, size) (저장,코덱정보,초당프레임,사이즈)
