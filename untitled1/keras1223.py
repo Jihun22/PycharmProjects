@@ -131,3 +131,9 @@ print("predictions:",predictions[0].shape)
 print("np.sum:",np.sum(predictions[0]))
 # 가장 큰 값 예측 클래스
 print("np.argmax:",np.argmax(predictions[0]))
+
+#레이블과 손실을 다루는 다른 방법
+y_train = np.array(train_labels)
+y_test = np.array(test_labels)
+
+model.compile(optimizer='rmsprop', loss='sparse_categorical_crossentropy', metrics=['acc'])
