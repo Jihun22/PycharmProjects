@@ -80,13 +80,14 @@ plt.legend()
 plt.show()
 
 #훈련과 검증 정확도 그리기
-plt.clf() #그래프 초기화
 
-acc = history.history['acc']
-val_acc = history.history['val_acc']
+plt.clf()   #그래프 초기화
+#['acc] 오류  -> ['accuracy] 로 해야 돌아감
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
 
 plt.plot(epochs , acc , 'bo', label = 'Training acc')
-plt.plot(epochs, val_acc , 'b', label = 'Validation acc')
+plt.plot(epochs, val_acc , 'b', label = 'Validation accuracy')
 plt.title('트레이닝 훈련과 검증 정확도 ')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
