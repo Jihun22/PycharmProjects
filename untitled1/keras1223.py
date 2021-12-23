@@ -18,24 +18,29 @@ print('train_labels:',train_labels[10])
 #데이터 인코딩
 import numpy as np
 
-def vectorize_sequences(sequences, dimension = 10000):
-    results =np.zeros((len(sequences), dimension))
-    for i , sequence in enumerate(sequences):
-        results[i,sequence] = 1.
-    return  results
+def vectorize_sequences(sequences, dimension=10000):
+    results = np.zeros((len(sequences), dimension))
+    for i, sequence in enumerate(sequences):
+        results[i, sequence] = 1.
+    return results
 
-x_train = vectorize_sequences(train_data) # 훈련 데이터 벡터 변환
-x_test = vectorize_sequences(test_data) #테스트 데이터 벡터 변환
+# 훈련 데이터 벡터 변환
+x_train = vectorize_sequences(train_data)
+# 테스트 데이터 벡터 변환
+x_test = vectorize_sequences(test_data)
 
-def to_one_hot(labels, dimension =46):
-    results =np.zeros((len(labels), dimension))
-    for i , label in enumerate(labels):
-        results[i, labels] = 1.
-        return results
-one_hot_train_labels= to_one_hot(train_labels) # 훈련 레이블 벡터 전환
-one_hot_test_labels = to_one_hot(test_labels) #테스트 레이블 벡터 전환
+def to_one_hot(labels, dimension=46):
+    results = np.zeros((len(labels), dimension))
+    for i, label in enumerate(labels):
+        results[i, label] = 1.
+    return results
+
+# 훈련 레이블 벡터 변환
+one_hot_train_labels = to_one_hot(train_labels)
+# 테스트 레이블 벡터 변환
+one_hot_test_labels = to_one_hot(test_labels)
 from keras.utils.np_utils import to_categorical
-one_hot_test_labels = to_categorical(train_labels)
+one_hot_train_labels = to_categorical(train_labels)
 one_hot_test_labels = to_categorical(test_labels)
 #모델 정의
 from keras import models
@@ -59,10 +64,10 @@ partial_y_train = one_hot_train_labels[1000:]
 
  #모델 훈련
 history = model.fit(partial_x_train,
-                     partial_y_train,
-                     epochs=20,
-                     batch_size=512,
-                     validation_data=(x_val,y_val))
+                    partial_y_train,
+                    epochs=20,
+                    batch_size=512,
+                    validation_data=(x_val, y_val))
 
 # 훈련과 검증 손실 그리기
 import matplotlib.pyplot as plt
@@ -94,3 +99,35 @@ plt.ylabel('Accuracy')
 plt.legend()
 
 plt.show()
+
+#모델 처음부터 다시 훈련
+model = models.Sequential()
+model.add(layers.Dense(64, activation='relu', input_shape=(10000,)))
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(46, activation='softmax'))
+
+model.compile(optimizer='rmsprop',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+model.fit(partial_x_train,
+          partial_y_train,
+          epochs=9,
+          batch_size=512,
+          validation_data=(x_val, y_val))
+results = model.evaluate(x_test, one_hot_test_labels)
+print('results:', results)
+
+import copy
+test_labels_copy = copy.copy(test_labels)
+np.random.shuffle(test_labels_copy)
+hits_array = np.array(test_labels) == np.array(test_labels_copy)
+print('float:',float(np.sum(hits_array)) / len(test_labels))
+
+# 새로운 데이터 예측하기
+predictions = model.predict(x_test)
+#predictions  의 각 항목
+print("predictions:",predictions[0].shape)
+# 벡터의 원소 합
+print("np.sum:",np.sum(predictions[0]))
+# 가장 큰 값 예측 클래스
+print("np.argmax:",np.argmax(predictions[0]))
