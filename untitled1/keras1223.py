@@ -137,3 +137,20 @@ y_train = np.array(train_labels)
 y_test = np.array(test_labels)
 
 model.compile(optimizer='rmsprop', loss='sparse_categorical_crossentropy', metrics=['acc'])
+
+#충분히 큰 중간층을 두어야 하는 이유
+
+# 정보 병목이 있는 모델
+model = models.Sequential()
+model.add(layers.Dense(64, activation='relu' , input_shape=(10000,)))
+model.add(layers.Dense(4, activation='relu'))
+model.add(layers.Dense(46, activation='softmax'))
+
+model.compile(optimizer='rmsprop',
+              loss ='categorical_crossentropy',
+              metrics=['accuracy'])
+model.fit(partial_x_train,
+          partial_y_train,
+          epochs=20,
+          batch_size=128,
+          validation_data=(x_val,y_val))
