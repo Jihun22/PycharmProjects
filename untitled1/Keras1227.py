@@ -27,7 +27,7 @@ def build_model():
                            input_shape=(train_data.shape[1],)))
     model.add(layers.Dense(64, activation='relu'))
     model.add(layers.Dense(1))
-    model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+    model.compile(optimizer='rmsprop', loss='mse', metrics=['mean_absolute_error'])
     return  model
 
 # K-겹 검증을 사용한 훈련검증
@@ -94,3 +94,14 @@ for i in range(k):
                         epochs=num_epochs, batch_size=1, verbose=0)
     mae_history = history.history['val_mean_absolute_error']
     all_mae_histories.append(mae_history)
+
+    #K-겹 검증 점수 평균을 기록
+    average_mae_history = [
+        np.mean([x[i] for  x in all_mae_histories]) for i in range(num_epochs)]
+
+    #검정 점수 그래프
+    import  matplotlib.pyplot as plt
+    plt.plot(range(1, len (average_mae_history)+ 1) , average_mae_history)
+    plt.xlabel('Epochs')
+    plt.ylabel('Validation MAE')
+    plt.show()
