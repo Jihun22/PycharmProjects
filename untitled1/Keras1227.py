@@ -14,3 +14,18 @@ train_data /= std
 
 test_data -= mean
 test_data /= std
+
+#모델 구성
+#모델 정의
+from keras import  models
+from keras import  layers
+
+def build_model():
+    #동일한 모델을 여러번 생성할 것이므로 함수를 만들어 사용
+    model = models.Sequential()
+    model.add(layers.Dense(64, activation='relu',
+                           input_shape=(train_data.shape[1],)))
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(1))
+    model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])
+    return  model
