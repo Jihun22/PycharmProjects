@@ -105,29 +105,29 @@ plt.plot(range(1, len (average_mae_history)+ 1) , average_mae_history)
 plt.xlabel('Epochs')
 plt.ylabel('Validation MAE')
 plt.show()
+#처음 10개의 데이터 포인트를 제외한 검증 점수 그리기
+def smooth_curve(points, factor=0.9):
+  smoothed_points = []
+  for point in points:
+    if smoothed_points:
+      previous = smoothed_points[-1]
+      smoothed_points.append(previous * factor + point * (1 - factor))
+    else:
+      smoothed_points.append(point)
+  return smoothed_points
 
-    # 처음 10개의 데이터 포인트를 제외한 검증 점수 그리기
-def smooth_curve(points, factor= 0.9):
-        smoothed_points = []
-        for point in points:
-            if smoothed_points:
-                previous = smoothed_points[-1]
-                smoothed_points.append(previous * factor + point * (1 - factor))
-            else:
-                smoothed_points.append(point)
-                return smoothed_points
-            smooth_mae_history = smooth_curve(average_mae_history[10:])
+smooth_mae_history = smooth_curve(average_mae_history[10:])
 
-            plt.plot(range(1,len(smooth_mae_history)+1), smooth_mae_history)
-            plt.xlabel('Epochs')
-            plt.ylabel('Validation MAE')
-            plt.show()
-            #최종훈련
-            #새롭게 컴파인된 모델을 얻습니다.
-            model =build_model()
-            #전체 데이터로 훈련시킴
-            model.fit(train_data,train_targets,
-                      epochs=80, batch_size=16, verbose=0)
-            test_mse_score , tes_mae_score = model.evaluate(test_data, test_targets)
+plt.plot(range(1, len(smooth_mae_history) + 1), smooth_mae_history)
+plt.xlabel('Epochs')
+plt.ylabel('Validation MAE')
+plt.show()
+# 최종 모델 훈련 하기
+# 새롭게 컴파인된 모델을 얻습니다
+model = build_model()
+# 전체 데이터로 훈련시킵니다
+model.fit(train_data, train_targets,
+          epochs=80, batch_size=16, verbose=0)
+test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
 
-            print('전체 데이터 훈련 결과:',test_mse_score)
+print('test점수:',test_mae_score)
