@@ -65,3 +65,55 @@ female_tuple = {'서울특별시':4988571,
 female = pd.Series(female_tuple)
 
 print(female)
+
+korea_df =pd.DataFrame({'인구수':population,
+                        '남자인구수':male,
+                        '여자인구수': female})
+print(korea_df)
+
+print(korea_df.index)
+print(korea_df.columns)
+print(korea_df['여자인구수'])
+print(korea_df['서울특별시':'인천광역시'])
+
+#index 객체
+idx = pd.Index([2,4,6,8,10])
+print(idx)
+print(idx[1])
+print(idx[1:2:2])
+print(idx[-1::])
+print(idx[::2])
+print(idx.size)
+print(idx.shape)
+print(idx.ndim)
+print(idx.dtype)
+#idex 연산
+idx1 = pd.Index([1,2,4,6,8])
+idx2 = pd.Index([2,4,5,6,7])
+#append : 색인 객체를 추가한 새로운 색인 반환
+print(idx1.append(idx2))
+
+#difference 색인의 차집합 반환
+print(idx.difference(idx2))
+print(idx1 - idx2)
+
+#intersection 색인의 교집합 반환
+print(idx1.intersection(idx2))
+print(idx1 & idx2)
+
+#union 색인의 합집합 반환
+print(idx1.union(idx2))
+print(idx1 | idx2 )
+
+#delete 지우는 값
+#print(idx1.delete(0))
+
+#drop 값이 삭제된 새로운 색인 반환
+#print(idx.drop(1))
+
+#여집합  공통된걸 뺀 나머지
+print(idx1 ^ idx2)
+
+#인덱싱
+s = pd.Series([0,0.25,0.5,0.75,1.0], index=['a','b','c','d','e'])
+print(s)
