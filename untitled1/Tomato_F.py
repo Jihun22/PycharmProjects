@@ -3,6 +3,13 @@ import  numpy as np
 from keras.models import Sequential
 from keras.layers.core import  Dense,Dropout,Activation
 from keras.callbacks import EarlyStopping
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.rcParams['font.family'] ='Malgun Gothic'
+
+matplotlib.rcParams['axes.unicode_minus'] =False
 #csv 파일 읽어오기
 
 file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본1.csv'
@@ -34,6 +41,19 @@ Tomato_df = pd.DataFrame({'열매수':df3,
 #생장길이와 열매수 관계
 Tomato_df['평균값'] = (df2 /df3)
 print(Tomato_df)
+
+#선형회귀
+# x= 생장길이  y= 열매수 그래프
+x=df2
+y=df3
+plt.plot(x,y,'o')
+plt.show()
+
+# x = 주차  y= 열매수
+x=df4
+y=df3
+plt.plot(x,y)
+plt.show()
 '''''
 y= np.empty((200,3))
 for i,v in enumerate(df1["주차"]):
