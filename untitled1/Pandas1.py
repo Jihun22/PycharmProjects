@@ -109,7 +109,7 @@ print(idx1 | idx2 )
 #print(idx1.delete(0))
 
 #drop 값이 삭제된 새로운 색인 반환
-#print(idx.drop(1))
+# print(idx.drop(1))
 
 #여집합  공통된걸 뺀 나머지
 print(idx1 ^ idx2)
@@ -117,3 +117,28 @@ print(idx1 ^ idx2)
 #인덱싱
 s = pd.Series([0,0.25,0.5,0.75,1.0], index=['a','b','c','d','e'])
 print(s)
+print(s['b'])
+print('b'in s)
+print(s.keys())
+print(list(s.items()))
+s['f'] = 1.25
+print(s)
+print(s['a':'d'])
+print(s[0:4])
+print(s[(s > 0.4 ) & (s < 0.8)])
+print(s[['a','c','e']])
+
+# Series 인덱싱
+s = pd.Series(['a','b','c','d','e'],
+              index=[1,3,5,7,9])
+print(s)
+print(s[1])
+
+print(s[2:4])
+
+print(s.iloc[1])
+print(s.iloc[2:4])
+print(s.reindex(range(10)))
+print(s.reindex(range(10), method='bfill'))
+
+#DataFreme 인덱싱
