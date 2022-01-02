@@ -160,3 +160,62 @@ print(korea_df.loc[(korea_df.인구수 >2500000) & (korea_df.남여비율 >100)]
 print(korea_df.iloc[:3, :2])
 
 #다중인덱싱
+
+idx_tuples = [('서울특별시', 2010), ('서울특별시',2020),
+              ('부산광역시', 2010), ('부산광역시',2020),
+              ('인천광역시', 2010), ('인천광역시',2020),
+              ('대구광역시', 2010), ('대구광역시',2020),
+              ('대전광역시', 2010), ('대전광역시',2020),
+              ('광주광역시',2010), ('광주광역시',2020)]
+print(idx_tuples)
+
+pop_tuples = [10312545, 9720846,
+              2567910,3404423,
+              2758296,2947217,
+              2511676,2427954,
+              1503664,1471040,
+              1454636,1455048]
+population = pd.Series(pop_tuples, index= idx_tuples)
+print(population)
+
+midx = pd.MultiIndex.from_tuples(idx_tuples)
+
+print(midx)
+population = population.reindex(midx)
+
+print(population)
+print(population[:,2010])
+print(population['대전광역시',:])
+
+korea_mdf = population.unstack()
+print(korea_mdf)
+print(korea_mdf.stack())
+
+male_tuples = [5111259,4732275,1773170 , 1668618,1390356,1476813,1255245,1198815,753648,734441,721780,720060]
+print(male_tuples)
+
+korea_mdf = pd.DataFrame({'총구인구수':population,
+                          '남자인구수': male_tuples})
+print(korea_mdf)
+
+female_tuples = [5201286,4988571,
+                 1794740,1735805,
+                 1367940,1470404,
+                 1256431,1229139,
+                 750016,736599,
+                 732856,734988]
+print(female_tuples)
+
+korea_mdf = pd.DataFrame({'총구인구수':population,
+                          '남자인구수': male_tuples,
+                          '여자인구수':female_tuples})
+print(korea_mdf)
+
+ratio = korea_mdf['남자인구수'] * 100 / korea_mdf['여자인구수']
+print(ratio)
+
+korea_mdf = pd.DataFrame({'총구인구수':population,
+                          '남자인구수': male_tuples,
+                          '여자인구수':female_tuples,
+                          '남녀비율':ratio})
+print(korea_mdf)
