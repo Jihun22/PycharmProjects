@@ -156,3 +156,7 @@ print(korea_df.loc[(korea_df.여자인구수 >1000000)])
 print(korea_df.loc[(korea_df.인구수 < 2000000)])
 print(korea_df.loc[(korea_df.인구수 > 2500000)])
 print(korea_df.loc[korea_df.남여비율 > 100])
+print(korea_df.loc[(korea_df.인구수 >2500000) & (korea_df.남여비율 >100)])
+print(korea_df.iloc[:3, :2])
+
+#다중인덱싱
