@@ -38,3 +38,30 @@ print(population)
 print(population['서울특별시'])
 print(population['서울특별시':'인천광역시'])
 
+#DataFrame 객체
+print(pd.DataFrame([{'A':2, 'B':4, 'D':3}, {'A':4 , 'B':5,'C':7}]))
+
+print(pd.DataFrame(np.random.rand(5,5),
+             columns=['A','B','C','D','E'],
+             index=[1,2,3,4,5]))
+#남자인구
+male_tuple = {'서울특별시':4732275,
+             '부산광역시':1668618,
+             '인천광역시':1476813,
+             '대구광역시':1198815,
+             '대전광역시':734441,
+             '광주광역시':720060}
+male = pd.Series(male_tuple)
+
+print(male)
+
+#여자인구
+female_tuple = {'서울특별시':4988571,
+             '부산광역시':1735805,
+             '인천광역시':1470404,
+             '대구광역시':1229139,
+             '대전광역시':736599,
+             '광주광역시':734988}
+female = pd.Series(female_tuple)
+
+print(female)
