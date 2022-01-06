@@ -13,11 +13,12 @@ matplotlib.rcParams['font.family'] ='Malgun Gothic'
 matplotlib.rcParams['axes.unicode_minus'] =False
 #csv 파일 읽어오기
 
-#file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본1.csv'
-file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본.csv'
+file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본1.csv'
+file_pathR='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본.csv'
 #[75,82]
 #columns=["생장길이,열매수"]
 df1 =pd.read_csv(file_path)
+ds1 =pd.read_csv(file_pathR)
 #print(df1)
 #해당 열 출력 print(df1[["주차","생장길이","열매수"]])
 #데이터 가공
@@ -25,14 +26,13 @@ df2=df1['생장길이']
 df3=df1['열매수']
 df4=df1['주차']
 
+ds2=ds1['생장길이']
+ds3=ds1['열매수']
+ds4=ds1['주차']
+
 #print(df2)
 #print(df3)
-week_class= {
-    "4주차": [15,14],
-    "9주차": [22,13],
-    "18주차":[15,17]
-}
-#print(week_class)
+
 tuples= df2
 tupp=df3
 tupleso = pd.Series(df3)
@@ -52,6 +52,16 @@ y=df2
 plt.plot(x,y,'o')
 plt.xlabel('열매수')
 plt.ylabel('생장길이')
+plt.title('4,9,18주데이터')
+plt.show()
+
+# 전체 데이터 x= 열매수  y= 생장길이 그래프
+x=ds3
+y=ds2
+plt.plot(x,y,'o')
+plt.xlabel('열매수')
+plt.ylabel('생장길이')
+plt.title('전체데이터')
 plt.show()
 
 # x = 주차  y= 열매수
@@ -62,8 +72,19 @@ font_size =7
 plt.plot(x,y,'o')
 plt.xlabel('열매수')
 plt.ylabel('주차')
+plt.title('4,9,18주데이터')
 plt.show()
 
+# 전체 데이터 x = 주차  y= 열매수
+x=ds3
+y=ds4
+fig = plt.figure(figsize=(5,5))
+font_size =7
+plt.plot(x,y,'o')
+plt.xlabel('열매수')
+plt.ylabel('주차')
+plt.title('전체 데이터')
+plt.show()
 # x = 생장길이  y= 주차
 x=df2
 y=df4
@@ -72,6 +93,18 @@ font_size =7
 plt.plot(x,y,'o')
 plt.xlabel('생장길이')
 plt.ylabel('주차')
+plt.title('4,9,18주데이터')
+plt.show()
+
+#전체데이터 x = 생장길이  y= 주차
+x=ds2
+y=ds4
+fig = plt.figure(figsize=(5,5))
+font_size =7
+plt.plot(x,y,'o')
+plt.xlabel('생장길이')
+plt.ylabel('주차')
+plt.title('전체데이터')
 plt.show()
 #예측
 
