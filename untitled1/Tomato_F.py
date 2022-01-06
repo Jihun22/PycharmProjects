@@ -6,13 +6,15 @@ from keras.callbacks import EarlyStopping
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 import matplotlib
+from sklearn.model_selection import train_test_split
 
 matplotlib.rcParams['font.family'] ='Malgun Gothic'
 
 matplotlib.rcParams['axes.unicode_minus'] =False
 #csv 파일 읽어오기
 
-file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본1.csv'
+#file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본1.csv'
+file_path='C:/Users/ik533/Desktop/전라북도_농가데이터셋_토마토수정본.csv'
 #[75,82]
 #columns=["생장길이,열매수"]
 df1 =pd.read_csv(file_path)
@@ -22,6 +24,7 @@ df1 =pd.read_csv(file_path)
 df2=df1['생장길이']
 df3=df1['열매수']
 df4=df1['주차']
+
 #print(df2)
 #print(df3)
 week_class= {
@@ -43,17 +46,36 @@ Tomato_df['평균값'] = (df2 /df3)
 print(Tomato_df)
 
 #선형회귀
-# x= 생장길이  y= 열매수 그래프
-x=df2
-y=df3
+# x= 열매수  y= 생장길이 그래프
+x=df3
+y=df2
 plt.plot(x,y,'o')
+plt.xlabel('열매수')
+plt.ylabel('생장길이')
 plt.show()
 
 # x = 주차  y= 열매수
-x=df4
-y=df3
-plt.plot(x,y)
+x=df3
+y=df4
+fig = plt.figure(figsize=(5,5))
+font_size =7
+plt.plot(x,y,'o')
+plt.xlabel('열매수')
+plt.ylabel('주차')
 plt.show()
+
+# x = 생장길이  y= 주차
+x=df2
+y=df4
+fig = plt.figure(figsize=(5,5))
+font_size =7
+plt.plot(x,y,'o')
+plt.xlabel('생장길이')
+plt.ylabel('주차')
+plt.show()
+#예측
+
+
 '''''
 y= np.empty((200,3))
 for i,v in enumerate(df1["주차"]):
