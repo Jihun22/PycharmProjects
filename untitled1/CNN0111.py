@@ -38,3 +38,20 @@ plt.imshow(X_train[0])
 
 # 이미지 라벨 출력(smiling = 1, frowning = 0)
 print("y = " + str(np.squeeze(Y_train[:, 0])))
+
+#데이터 표준화
+#채널의 최댓값인 255를 사용해 각 픽셀 값을 표준화
+X_train = X_train / 255.
+X_test = X_test / 255.
+
+#라벨 변환
+Y_train = Y_train.T
+Y_test = Y_test.T
+
+# 상태 출력
+print("Number of training examples:" +str(X_train.shape[0]))
+print("Number of test examples:" + str(X_test.shape[0]))
+print(("X_train shape:" +str(X_train.shape)))
+print("Y_train shape:" + str(Y_train.shape))
+print("X_test shape:" + str(X_test.shape))
+print("Y_test shape:" + str(Y_test.shape))
