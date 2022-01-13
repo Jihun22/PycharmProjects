@@ -1,6 +1,14 @@
 import numpy as np
 import h5py
 import matplotlib.pyplot as plt
+import keras
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
+from keras.utils import to_categorical
+
+from keras.layers.normalization import BatchNormalization
+from keras.callbacks import EarlyStopping
 
 # 데이터 세트 로드 함수
 def load_dataset():
@@ -77,3 +85,13 @@ print("X_train shape:" + str(X_train.shape))
 print("Y_train shape:" + str(Y_train.shape))
 print("X_test shape:" + str(X_test.shape))
 print("Y_test shape:" + str(Y_test.shape))
+
+#float32 ndarray 로 변환
+
+
+X_train = X_train.astype('float32')
+X_test = X_test.astype('float32')
+
+Y_train = Y_train.astype('float32')
+Y_test = Y_test.astype('float32')
+plt.imshow(X_train[3])
