@@ -43,7 +43,7 @@ print('Test label dimension 차원: ', Y_test.shape)
 
 # 이미지 플롯
 plt.imshow(X_train[0])
-
+plt.show()
 # 이미지 라벨 출력(smiling = 1, frowning = 0)
 print("y = " + str(np.squeeze(Y_train[:, 0])))
 
@@ -95,3 +95,4 @@ X_test = X_test.astype('float32')
 Y_train = Y_train.astype('float32')
 Y_test = Y_test.astype('float32')
 plt.imshow(X_train[3])
+plt.show()
