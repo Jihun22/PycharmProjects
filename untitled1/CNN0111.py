@@ -86,9 +86,8 @@ print("Y_train shape:" + str(Y_train.shape))
 print("X_test shape:" + str(X_test.shape))
 print("Y_test shape:" + str(Y_test.shape))
 
-#float32 ndarray 로 변환
 
-
+# float32 ndarray로 변환
 X_train = X_train.astype('float32')
 X_test = X_test.astype('float32')
 
@@ -96,3 +95,36 @@ Y_train = Y_train.astype('float32')
 Y_test = Y_test.astype('float32')
 plt.imshow(X_train[3])
 plt.show()
+
+#컨볼루셔널 레이어
+
+#컨볼루셔널 뉴럴 네트워크 생성
+model = Sequential()
+
+#첫 번째 컨볼루셔널 레이어
+model.add(Conv2D(16,(5,5), padding='same', activation='relu',
+                 input_shape=(64,64,3)))
+model.add(BatchNormalization())
+#첫 번째 풀링 레이어
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Dropout(0.1))
+
+# 두 번째 컨볼루셔널 레이어
+model.add((Conv2D(32, (5,5), padding='same', activation='relu')))
+model.add(BatchNormalization())
+#두 번째 풀링 레이어
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+#드롭아웃 레이어
+model.add(Dropout(0.1))
+
+#평탄화 레이어
+model.add(Flatten())
+
+#첫번째 완전 연결 레이어
+model.add(Dense(128, activation='relu'))
+
+#마지막 출력 레이어
+model.add(Dense(1,activation='sigmoid'))
+#모델 레이아웃 출력
+model.summary()
