@@ -9,7 +9,7 @@ from keras.utils import to_categorical
 
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import EarlyStopping
-
+from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score, f1_score
 # 데이터 세트 로드 함수
 def load_dataset():
     # h5py 모듈 사용 및, 파일 경로와 파일 접속 모드(읽기, read)를 설정
@@ -128,3 +128,27 @@ model.add(Dense(128, activation='relu'))
 model.add(Dense(1,activation='sigmoid'))
 #모델 레이아웃 출력
 model.summary()
+# 모델 컴파일
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+#조기 중단 콜백을 통해 검증 손실을 모니터하고, 필요한 경우 훈련을 중단한다.
+
+early_stopping = keras.callbacks.EarlyStopping(monitor='val_loss')
+
+# 훈련 세션 초기화
+model.fit(X_train, Y_train,
+          validation_data=(X_test, Y_test),
+          epochs=20,
+          batch_size=50,
+          callbacks=[early_stopping])
+
+# 테스트 세트 결과 예측
+Y_pred = model.predict_classes(X_test)
+
+# 테스트 정확성, 정밀도 평가 및 sklearn.metrics를 사용해 점수 확인
+print("Test accuracy: %s" % accuracy_score(Y_test, Y_pred))
+print("Precision: %s" % precision_score(Y_test, Y_pred))
+print("Recall: %s" % recall_score(Y_test, Y_pred))
+print("F1 score: %s" % f1_score(Y_test, Y_pred))
