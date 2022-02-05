@@ -1,3 +1,4 @@
+import matplotlib
 from tensorflow.keras.layers import Input, Dense, Flatten
 from tensorflow.keras import Model
 from tensorflow.keras.applications.vgg16 import VGG16
@@ -5,7 +6,11 @@ from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Sequential
 import numpy as np
 import pandas as pd
+#plt 한글 폰트
+matplotlib.rcParams['font.family'] ='Malgun Gothic'
 
+matplotlib.rcParams['axes.unicode_minus'] =False
+#plt 한글폰트 끝
 image_size = [224, 224]
 
 vgg = VGG16(input_shape = image_size + [3], weights = 'imagenet', include_top =  False)
@@ -45,10 +50,13 @@ test_set = test_data_gen.flow_from_directory('C:/Users/ik533/Desktop/archive/New
                                              target_size = (224,224), batch_size = 32, class_mode = 'categorical')
 import matplotlib.pyplot as plt
 plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Bacterial_spot/00416648-be6e-4bd4-bc8d-82f43f8a7240___GCREC_Bact.Sp 3110.JPG"))
-plt.title("Bacterial Spot")
+plt.title("세균반점")
+plt.show()
 
 plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Early_blight/0034a551-9512-44e5-ba6c-827f85ecc688___RS_Erly.B 9432.JPG"))
-plt.title("Early Blight")
+plt.title("겹무늬병")
+plt.show()
 
 plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Late_blight/0003faa8-4b27-4c65-bf42-6d9e352ca1a5___RS_Late.B 4946.JPG"))
-plt.title("Late Blight")
+plt.title("감자역병균")
+plt.show()
