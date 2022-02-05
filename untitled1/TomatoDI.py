@@ -60,3 +60,26 @@ plt.show()
 plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Late_blight/0003faa8-4b27-4c65-bf42-6d9e352ca1a5___RS_Late.B 4946.JPG"))
 plt.title("감자역병균")
 plt.show()
+
+mod = model.fit_generator(
+  train_set,
+  validation_data=test_set,
+  epochs=20,
+  steps_per_epoch=len(train_set),
+  validation_steps=len(test_set)
+)
+
+import matplotlib.pyplot as plt
+plt.plot(mod.history['loss'], label='train loss')
+plt.plot(mod.history['val_loss'], label='val loss')
+plt.legend()
+plt.show()
+
+plt.plot(mod.history['accuracy'], label='train accuracy')
+plt.plot(mod.history['val_accuracy'], label='val_accuracy')
+plt.legend()
+plt.show()
+
+# save it as a h5 file
+from tensorflow.keras.models import load_model
+model.save('model.h5')
