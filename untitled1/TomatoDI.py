@@ -15,7 +15,7 @@ for layer in vgg.layers:
 
 from glob import glob
 #데이터셋 위치
-folders = glob('/User/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/*')
+folders = glob('/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/*')
 
 print (folders)
 
@@ -36,8 +36,19 @@ train_data_gen = ImageDataGenerator(rescale = 1./255, shear_range = 0.2, zoom_ra
 
 test_data_gen = ImageDataGenerator(rescale = 1./255)
 
-train_set = train_data_gen.flow_from_directory('/User/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/',
+#트레인
+train_set = train_data_gen.flow_from_directory('C:/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train',
                                                target_size = (224,224), batch_size = 32, class_mode = 'categorical')
 
-test_set = test_data_gen.flow_from_directory('/User/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/valid/',
+#테스트 셋
+test_set = test_data_gen.flow_from_directory('C:/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/valid',
                                              target_size = (224,224), batch_size = 32, class_mode = 'categorical')
+import matplotlib.pyplot as plt
+plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Bacterial_spot/00416648-be6e-4bd4-bc8d-82f43f8a7240___GCREC_Bact.Sp 3110.JPG"))
+plt.title("Bacterial Spot")
+
+plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Early_blight/0034a551-9512-44e5-ba6c-827f85ecc688___RS_Erly.B 9432.JPG"))
+plt.title("Early Blight")
+
+plt.imshow(plt.imread("/Users/ik533/Desktop/archive/New Plant Diseases Dataset(Augmented)/train/Tomato___Late_blight/0003faa8-4b27-4c65-bf42-6d9e352ca1a5___RS_Late.B 4946.JPG"))
+plt.title("Late Blight")
