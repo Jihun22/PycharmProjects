@@ -51,3 +51,40 @@ print(input_2)
 
 
 #모델구성방법
+#Sequential()
+#서브클래싱
+#함수형 API
+
+#Sequential()
+"""
+모델이 순차적으로 진행할 때 사용
+간단한 방법
+ Sequential 객체 생성후 ,add 를 통한 방법
+Sequential 인자에 한번에 추가
+다중입력 및 출력이 존재하는 등의 복잡한 모델을 구성할 수 없음
+"""
+from  tensorflow.keras.layers import  Dense , Input , Flatten
+from tensorflow.keras.models import Sequential,Model
+from tensorflow.keras.utils import plot_model
+
+
+model = Sequential()
+model.add(Input(shape=(28,28)))
+model.add(Dense(300,activation='relu'))
+model.add(Dense(100,activation='relu'))
+model.add(Dense(10,activation='softmax'))
+
+# 모델 구조 확인 summary() 이용
+model.summary()
+#plot_model(model)
+#plot_model(model , to_file='/model1.png')
+
+model = Sequential([Input(shape=(28,28) , name= 'Input'),
+                    Dense(300, activation='relu', name='Dense1'),
+                    Dense(100, activation='relu', name='Dense2'),
+                    Dense(10, activation='softmax', name='Output')])
+model.summary()
+#plot_model(model)
+#plot_model(model , to_file='/model2.png')
+
+#함수형 API
