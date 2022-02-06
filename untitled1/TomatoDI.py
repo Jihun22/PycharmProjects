@@ -68,13 +68,13 @@ mod = model.fit_generator(
   steps_per_epoch=len(train_set),
   validation_steps=len(test_set)
 )
-
+#매 에포크 마다 loss 훈련 손실값 , val_loss 검증 손실값
 import matplotlib.pyplot as plt
 plt.plot(mod.history['loss'], label='train loss')
 plt.plot(mod.history['val_loss'], label='val loss')
 plt.legend()
 plt.show()
-
+#accuracy 훈련 정확도 , val_accuracy 검증 정확도
 plt.plot(mod.history['accuracy'], label='train accuracy')
 plt.plot(mod.history['val_accuracy'], label='val_accuracy')
 plt.legend()
