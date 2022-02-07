@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+from keras.layers import Concatenate
 from tensorflow import keras
 
 print(tf.__version__)
@@ -88,3 +89,69 @@ model.summary()
 #plot_model(model , to_file='/model2.png')
 
 #함수형 API
+"""
+가장 권장되는 방법
+모델을 복잡하고 유연하게 구성 가능
+다중 입출력을 다룰수 있음
+"""
+
+from  tensorflow.keras.models import Model
+from  tensorflow.keras.layers import Input , Flatten, Dense
+from tensorflow.keras.utils import  plot_model
+
+inputs = Input(shape=(28,28,1))
+
+x = Flatten(input_shape=(28,28,1))(inputs)
+x = Dense(300, activation ='relu')(x)
+x = Dense(100, activation = 'relu')(x)
+x = Dense(10 , activation = 'softmax')(x)
+
+model = Model(inputs = inputs, outputs =x)
+model.summary()
+#plot_model(model)
+
+
+input_layer = Input(shape=(28,28))
+hidden1 = Dense(100, activation='relu')(input_layer)
+hidden2 = Dense(30, activation='relu')(hidden1)
+concat = Concatenate()([input_layer,hidden2])
+output = Dense(1)(concat)
+
+model = Model(inputs=[input_layer], outputs=[output])
+model.summary()
+
+input_1 = Input(shape=(10,10), name ='input_1')
+input_2 = Input(shape=(10,28), name ='input_2')
+
+hidden1 = Dense(100, activation='relu')(input_2)
+hidden2 = Dense(10, activation='relu')(hidden1)
+concat = Concatenate()([input_1,hidden2])
+output = Dense(1,activation='sigmoid', name='output')(concat)
+
+model = Model(inputs = [input_1, input_2], outputs=[output])
+
+model.summary()
+
+input_ = Input(shape=(10,10) , name='input_')
+
+hidden1 = Dense(100, activation= 'relu')(input_)
+hidden2 = Dense(10, activation= 'relu')(hidden1)
+
+output = Dense(1, activation='sigmoid', name = 'main_output')(hidden2)
+sub_out = Dense(1, name='sum_output')(hidden2)
+
+model = Model(inputs=[input_], outputs=[output, sub_out])
+
+model.summary()
+
+input_1 = Input(shape= (10,10), name='input_1')
+input_2 = Input(shape= (10,28), name='input_2')
+
+hidden1 = Dense(100, activation= 'relu')(input_2)
+hidden2 = Dense(10, activation='relu')(hidden1)
+concat = Concatenate()([input_1, hidden2])
+output = Dense(1, activation='sigmoid', name='main_output')(concat)
+sub_out = Dense(1, name='sum_output')(hidden2)
+
+model = Model(inputs=[input_1,input_2], outputs=[output, sub_out])
+model.summary()
