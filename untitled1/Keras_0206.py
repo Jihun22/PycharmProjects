@@ -155,3 +155,4 @@ sub_out = Dense(1, name='sum_output')(hidden2)
 
 model = Model(inputs=[input_1,input_2], outputs=[output, sub_out])
 model.summary()
+#20220212
