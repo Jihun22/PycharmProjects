@@ -13,6 +13,7 @@ from tensorflow.keras.applications.vgg19 import VGG19
 import os
 import matplotlib.pyplot as plt
 import tensorflow as tf
+
 #plt 한글 폰트
 matplotlib.rcParams['font.family'] ='Malgun Gothic'
 
@@ -75,3 +76,30 @@ testing_set_vg19 = test_datagen_vg19.flow_from_directory(test_path,
                                                  batch_size=16,
                                                  class_mode="categorical", shuffle=False)
 
+#모델
+
+callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
+
+r_vg19 = modelvg.fit_generator(trainning_set_vg19,
+                       validation_data=testing_set_vg19,
+                       epochs=2,
+                       callbacks=[callback]
+                       )
+
+#시각화
+accuracy = r_vg19.history['accuracy']
+val_accuracy = r_vg19.history['val_accuracy']
+loss = r_vg19.history['loss']
+val_loss = r_vg19.history['val_loss']
+epochs = range(len(accuracy))
+
+plt.title("VGG19")
+plt.plot(epochs, accuracy, "b", label="trainning accuracy")
+plt.plot(epochs, val_accuracy, "r", label="validation accuracy")
+plt.legend()
+plt.show()
+
+plt.plot(epochs, loss, "b", label="trainning loss")
+plt.plot(epochs, val_loss, "r", label="validation loss")
+plt.legend()
+plt.show()
