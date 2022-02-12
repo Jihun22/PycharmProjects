@@ -51,3 +51,27 @@ for layer in vg19.layers:
     layer.trainable = False
 
 x =Flatten()(vg19.output)
+
+prediction = Dense(len(folders), activation="softmax")(x)
+modelvg = Model(inputs=vg19.input , outputs=prediction)
+
+modelvg.summary()
+
+#컴파일 모델
+modelvg.compile(loss="categorical_crossentropy", metrics=["accuracy"], optimizer="adam")
+
+#데이터 증강
+train_datagen_vg19 = ImageDataGenerator(rescale=1./255)
+
+test_datagen_vg19 = ImageDataGenerator(rescale=1./255)
+
+trainning_set_vg19 = train_datagen_vg19.flow_from_directory(train_path,
+                                                 target_size=(128, 128),
+                                                 batch_size=16,
+                                                 class_mode="categorical", shuffle=True)
+
+testing_set_vg19 = test_datagen_vg19.flow_from_directory(test_path,
+                                                 target_size=(128, 128),
+                                                 batch_size=16,
+                                                 class_mode="categorical", shuffle=False)
+
