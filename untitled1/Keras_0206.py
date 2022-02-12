@@ -156,3 +156,56 @@ sub_out = Dense(1, name='sum_output')(hidden2)
 model = Model(inputs=[input_1,input_2], outputs=[output, sub_out])
 model.summary()
 #20220212
+'''
+서브클래싱 
+커스터마이징에 최적화된 방법
+model 클래스를 상속받아 model 이 포함하는 기능을 사용할 수 있음
+flt() evaluate() , predict9)
+save() load()
+
+주로 call() 메소드 안에서 원하는 계산 가능 
+for , if 저수준 연산 가능 
+권장되는 방법은 아니지만 어느모델의 구현코드를 참고할 때 해석할수 있어야한다.
+'''
+from  tensorflow.keras.models import  Model
+from tensorflow.keras.layers import  Input , Flatten ,Dense
+from tensorflow.keras.utils import plot_model
+
+class MyModel(Model):
+    def __init__(self, units=30 , activation='relu', **kwargs):
+        super(MyModel,self).__inif__(**kwargs)
+
+        self.dense_layer1 = Dense(300, activation= activation)
+        self.dense_layer2 = Dense(100, activation= activation)
+        self.dense_layer3 = Dense(units, activation=activation)
+
+        self.output_layer = Dense(10, activation='softmax')
+
+    def call(self,inputs):
+        x = self.dense_layer1(inputs)
+        x = self.dense_layer2(x)
+        x = self.dense_layer3(x)
+        x = self.output_layer(x)
+        return x
+    '''
+    모델 가중치 확인 
+    '''
+    from tensorflow.keras.models import  Model
+    from tensorflow.keras.layers import  Input,Flatten, Dense
+    from tensorflow.keras.utils import  plot_model
+
+    inputs = Input(shape=(28,28,1))
+
+    x = Flatten(input_shape=(28,28,1)) (inputs)
+    x = Dense(300, activation='relu')(x)
+    x = Dense(100, activation='relu')(x)
+    x = Dense(10, activation='softmax')(x)
+
+    model = Model(inputs= inputs, outputs=x)
+
+    model.summary()
+    #모델의 레이어들이 리스트로 표한됨
+    model.layers()
+    hidden2 = model.layers[2]
+    hidden2.name
+
