@@ -1,6 +1,7 @@
 import matplotlib
 from tensorflow.keras.layers import Input, Dense, Flatten
-from tensorflow.keras import Model
+from keras import models
+from keras import layers
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Sequential
 import numpy as np
@@ -12,9 +13,12 @@ matplotlib.rcParams['axes.unicode_minus'] =False
 #plt 한글폰트 끝
 image_size = [224, 224]
 
-model = Sequential()
-model.add(Input(shape=(28,28)))
-model.add(Dense(300,activation='relu'))
+model = models.Sequential()
+model.add(layers.Conv2D(32,(3,3),activation='relu',input_shape=(150,150,3)))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Conv2D(64,(3,3), activation='relu'))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Conv2D(128,(3,3),activation='relu'))
 model.add(Dense(100,activation='relu'))
 model.add(Dense(10,activation='softmax'))
 
