@@ -53,3 +53,13 @@ model.compile(optimizer= 'adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+#모델 훈련
+''' 훈련데이터를 모델에 주입 
+모델이 이미지와 레이블을 매핑함
+테스트 세트 모델 예측 
+예측이 테스트 배열 레이블과 일치하는지 확인 
+'''
+#모델피드
+
+model.fit(train_images, train_labels, epochs=10)
+
