@@ -46,3 +46,10 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(10)
 ])
+
+#모델 컴파일  손실함수: 훈련중 모델이 얼마나 정확한지 측정  , 옵티마이저: 모델이 인식하는 데이터와 해당 손실 함수를 기반으로 모델이 업데이트 되는방식
+#메트릭 : 훈련 및 테스트 단계를 모니터링 하는데 사용
+model.compile(optimizer= 'adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+
