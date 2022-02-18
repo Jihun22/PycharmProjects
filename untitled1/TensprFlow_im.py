@@ -63,3 +63,51 @@ model.compile(optimizer= 'adam',
 
 model.fit(train_images, train_labels, epochs=10)
 
+#정확도 평가 모델이 테스트 데이터세트에 작동하는 방식을 비교
+test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+
+print('\nTest accuracy:', test_acc)
+
+#예측하기
+probability_model = tf.keras.Sequential([model,
+                                         tf.keras.layers.Softmax()])
+
+predictions = probability_model.predict(test_images)
+
+print(predictions[0])
+np.argmax(predictions[0])
+
+#10개의 클래스에 대한 예측을 모두 그래프로 표현
+
+def plot_image(i, predictions_array , true_label, img):
+    true_label, img = true_label[i], img[i]
+    plt.grid(False)
+    plt.xticks([])
+    plt.yticks([])
+
+    plt.imshow(img, cmap = plt.cm.binary)
+
+    predicted_label = np.argmax(predictions_array)
+    if predicted_label == true_label:
+        color ='blue'
+    else:
+        color = 'red'
+
+    plt.xlabel("{} {:2.0f}% ({})".format(class_names[predicted_label],
+                                         100*np.max(predictions_array),
+                                         class_names[true_label]),
+                                         color =color)
+    def plot_value_array(i, predictions_array , true_label):
+        true_label = true_label[i]
+        plt.grid(False)
+        plt.xticks(range(10))
+        plt.yticks([])
+        thisplot = plt.bar(range(10), predictions_array , color ="#777777")
+        plt.ylim([0,1])
+        predicted_label = np.argmax(predictions_array)
+
+        thisplot[predicted_label].set_color('red')
+        thisplot[true_label].set_clor('blue')
+
+
+
