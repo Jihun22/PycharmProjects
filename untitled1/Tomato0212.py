@@ -1,10 +1,13 @@
 import matplotlib
 import numpy as np
-from keras import models
+from keras import models, optimizers
 from tensorflow import keras
 from tensorflow.keras import layers
 import os
 import matplotlib.pyplot as plt
+from keras.preprocessing.image import ImageDataGenerator
+
+
 #plt 한글 폰트
 matplotlib.rcParams['font.family'] ='Malgun Gothic'
 
@@ -54,3 +57,10 @@ model.add(layers.Dense(512, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
 
 model.summary()
+
+# 모델 훈련 설정
+model.compile(loss='binary_crossentropy',
+              optimizer=optimizers.RMSprop(lr=1e-4),
+              metrics=['acc'])
+
+
