@@ -60,7 +60,7 @@ model.summary()
 
 # 모델 훈련 설정
 model.compile(loss='binary_crossentropy',
-              optimizer=optimizers.RMSprop(lr=1e-4),
+              optimizer='adam',
               metrics=['acc'])
 
 
