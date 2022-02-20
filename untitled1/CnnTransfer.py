@@ -1,4 +1,4 @@
-import downloader as downloader
+
 import  matplotlib
 import  matplotlib.pyplot as plt
 import  matplotlib.font_manager as fm
@@ -7,6 +7,7 @@ import  shutil
 
 import os
 import shutil
+from bing_image_downloader.bing_image_downloader import downloader
 
 
 
