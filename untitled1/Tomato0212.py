@@ -64,3 +64,25 @@ model.compile(loss='binary_crossentropy',
               metrics=['acc'])
 
 
+#데이터 전처리
+from keras.preprocessing.image import ImageDataGenerator
+
+# 모든 이미지를 1/255로 스케일을 조정
+train_datagen = ImageDataGenerator(rescale=1./255)
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+train_generator = train_datagen.flow_from_directory(
+        # 타깃 디렉터리
+        train_path,
+        # 모든 이미지를 150 × 150 크기로
+        target_size=(150, 150),
+        batch_size=20,
+        # binary_crossentropy 손실을 사용하기 때문에 이진 레이블이 필요하다
+        class_mode='binary')
+
+validation_generator = test_datagen.flow_from_directory(
+        test_path,
+        target_size=(150, 150),
+        batch_size=20,
+        class_mode='binary')
+
