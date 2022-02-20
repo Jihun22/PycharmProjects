@@ -82,4 +82,4 @@ plt.show()
 
 # save it as a h5 file
 from tensorflow.keras.models import load_model
-model.save('model.h5')
+#model.save('model.h5')
