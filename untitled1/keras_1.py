@@ -18,7 +18,7 @@ y = np.empty((20000,3))
 for i , v in enumerate(csv["label"]):
     y[i] = bmi_class[v]
 
-x = csv[["weight", "height"]].as_matrix()
+x = csv[["weight", "height"]].values
 
 x_train , y_train = x[1:15001], y[1:15001]
 x_test, y_test = x[15001:20001] , y[15001:20001]

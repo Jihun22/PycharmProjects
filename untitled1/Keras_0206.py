@@ -207,5 +207,6 @@ class MyModel(Model):
     #모델의 레이어들이 리스트로 표한됨
     model.layers()
     hidden2 = model.layers[2]
-    hidden2.name
-
+    print(hidden2.name)
+    weights, biases = hidden2.get_weights()
+    print(weights)
