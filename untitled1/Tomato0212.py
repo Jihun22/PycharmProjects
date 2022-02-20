@@ -86,3 +86,15 @@ validation_generator = test_datagen.flow_from_directory(
         batch_size=20,
         class_mode='binary')
 
+for data_batch, labels_batch in train_generator:
+    print('배치 데이터 크기:', data_batch.shape)
+    print('배치 레이블 크기:', labels_batch.shape)
+    break
+
+histor = model.fit_generator(
+    train_generator,
+    steps_per_epoch=100,
+    epochs=30,
+    validation_data=validation_generator,
+    validation_steps=50)
+
