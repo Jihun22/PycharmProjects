@@ -243,3 +243,15 @@ model.compile(loss = 'categorical_crossentropy',
               
 '''
 
+#모델 훈련 평가 및 예측
+'''
+fit()함수 
+ train_data(학습데이터) ,train_label(데이터의 정답)
+ epochs :얼마큼 학습 
+ batch_size
+ validation_data
+ 
+ evaluate()함수 평가를위해 사용하는 함수
+ -테스트 데이터 
+ predict() 임의의 데이터를 인자로 넣어 예측 가능  
+'''
