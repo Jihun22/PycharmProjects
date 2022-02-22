@@ -190,23 +190,33 @@ class MyModel(Model):
     '''
     모델 가중치 확인 
     '''
-    from tensorflow.keras.models import  Model
-    from tensorflow.keras.layers import  Input,Flatten, Dense
-    from tensorflow.keras.utils import  plot_model
+from tensorflow.keras.models import  Model
+from tensorflow.keras.layers import  Input,Flatten, Dense
+from tensorflow.keras.utils import  plot_model
 
-    inputs = Input(shape=(28,28,1))
+inputs = Input(shape=(28,28,1))
 
-    x = Flatten(input_shape=(28,28,1)) (inputs)
-    x = Dense(300, activation='relu')(x)
-    x = Dense(100, activation='relu')(x)
-    x = Dense(10, activation='softmax')(x)
+x = Flatten(input_shape=(28,28,1)) (inputs)
+x = Dense(300, activation='relu')(x)
+x = Dense(100, activation='relu')(x)
+x = Dense(10, activation='softmax')(x)
 
-    model = Model(inputs= inputs, outputs=x)
+model = Model(inputs= inputs, outputs=x)
 
-    model.summary()
-    #모델의 레이어들이 리스트로 표한됨
-    model.layers()
-    hidden2 = model.layers[2]
-    print(hidden2.name)
-    weights, biases = hidden2.get_weights()
-    print(weights)
+model.summary()
+#모델의 레이어들이 리스트로 표한됨
+model.layers
+hidden_2 = model.layers[2]
+print(hidden_2.name)
+
+model.get_layer('dense_20') is hidden_2
+weights, biases = hidden_2.get_weights()
+print(weights)
+print(biases)
+
+print(weights.shape)
+print(biases.shape)
+
+'''
+모델 컴파일 : 모델을 구성한후 사용할 손실함수loss , 옵티마이저 를 지정
+'''
