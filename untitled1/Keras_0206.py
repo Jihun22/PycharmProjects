@@ -220,3 +220,26 @@ print(biases.shape)
 '''
 모델 컴파일 : 모델을 구성한후 사용할 손실함수loss , 옵티마이저 를 지정
 '''
+
+model.compile(loss='sparse_categorical_crossentropy',
+              optimizer='sgd',
+              metrics=['accuracy'])
+
+'''
+컴파일 예시 
+평균제곱 오차 회귀 문제 
+model.compile(loss = 'mse',
+              optimizer = RMSprop()
+              metrics=['mae'])
+              
+이진 분류 
+model.compile(loss='binary_crossentropy',
+              optimizer= RMSprop(),
+              metrics=['accuracy'])
+다항 분류
+model.compile(loss = 'categorical_crossentropy',
+              optimizer =RMSprop(),
+              metrics=['accuracy'])
+              
+'''
+
