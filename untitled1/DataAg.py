@@ -1,15 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-import  tensorflow.datasets as tfds
+import  tensorflow_datasets as tfds
 from tensorflow.keras import layers
 from tensorflow.keras.datasets import mnist
 
 #데이터 세트 다운로드
-(train_ds ,val_ds ,test_ds) , metadata = tfds.lod(
+(train_ds, val_ds, test_ds), metadata = tfds.load(
     'tf_flowers',
-    split=['train[:80%]', 'train[80%:90%]', 'train[90%]'],
-    with_info= True,
+    split=['train[:80%]', 'train[80%:90%]', 'train[90%:]'],
+    with_info=True,
     as_supervised=True,
 )
 
@@ -22,5 +22,6 @@ print(num_classes)
 get_label_name = metadata.features['label'].int2str
 
 image, label = next(iter(train_ds))
-_ = plt.imshow(image)
-_ = plt.title(get_label_name(label))
+plt.imshow(image)
+plt.title(get_label_name(label))
+plt.show()
