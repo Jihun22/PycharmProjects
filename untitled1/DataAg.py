@@ -25,3 +25,17 @@ image, label = next(iter(train_ds))
 plt.imshow(image)
 plt.title(get_label_name(label))
 plt.show()
+
+#크기 및 배율 조정하기
+
+IMG_SIZE =180
+
+resize_and_rescale = tf.keras.Sequential([
+    layers.experimental.preprocessing.Resizing(IMG_SIZE, IMG_SIZE),
+    layers.experimental.preprocessing.Rescaling(1./255)
+])
+
+result = resize_and_rescale(image)
+plt.imshow(result)
+plt.show()
+
