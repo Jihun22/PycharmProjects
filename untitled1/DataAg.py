@@ -38,4 +38,27 @@ resize_and_rescale = tf.keras.Sequential([
 result = resize_and_rescale(image)
 plt.imshow(result)
 plt.show()
+#픽셀이 [0-1] 있는지 확인
+print("Min and max pixel values:", result.numpy().min(), result.numpy().max())
+
+
+# 데이터 증강 전처리 레이어 사용하여 동일한 이미지를 반복적으로 적용
+
+data_augmentation = tf.keras.Sequential([
+  layers.experimental.preprocessing.RandomFlip("horizontal_and_vertical"),
+  layers.experimental.preprocessing.RandomRotation(0.2),
+])
+
+# Add the image to a batch
+image = tf.expand_dims(image, 0)
+
+plt.figure(figsize=(10, 10))
+for i in range(9):
+  augmented_image = data_augmentation(image)
+  ax = plt.subplot(3, 3, i + 1)
+  plt.imshow(augmented_image[0])
+  plt.axis("off")
+  plt.show()
+
+
 
