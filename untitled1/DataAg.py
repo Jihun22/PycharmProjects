@@ -69,4 +69,38 @@ model = tf.keras.Sequential([
     layers.MaxPooling2D(),
 ])
 
+#옵션2. 데이터세트에 전처리 레이어 적용하기
+
+aud_ds =train_ds.map(
+    lambda  x, y :(resize_and_rescale(x, training= True), y))
+
+#데이터세트에 전처리 레이어 적용하기
+
+batch_size = 32
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+
+def prepare(ds, shuffle=False, augment=False):
+  # Resize and rescale all datasets
+  ds = ds.map(lambda x, y: (resize_and_rescale(x), y),
+              num_parallel_calls=AUTOTUNE)
+
+  if shuffle:
+    ds = ds.shuffle(1000)
+
+  # Batch all datasets
+  ds = ds.batch(batch_size)
+
+  # Use data augmentation only on the training set
+  if augment:
+    ds = ds.map(lambda x, y: (data_augmentation(x, training=True), y),
+                num_parallel_calls=AUTOTUNE)
+
+  # Use buffered prefecting on all datasets
+  return ds.prefetch(buffer_size=AUTOTUNE)
+
+train_ds = prepare(train_ds, shuffle=True, augment=True)
+val_ds = prepare(val_ds)
+test_ds = prepare(test_ds)
+
+
 
