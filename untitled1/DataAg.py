@@ -60,5 +60,13 @@ for i in range(9):
   plt.axis("off")
   plt.show()
 
+#옵션1. 전처리 레이어를 모델의 일부로 만들기
+
+model = tf.keras.Sequential([
+    resize_and_rescale,
+    data_augmentation,
+    layers.Conv2D(16,3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+])
 
 
