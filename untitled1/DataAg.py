@@ -102,5 +102,52 @@ train_ds = prepare(train_ds, shuffle=True, augment=True)
 val_ds = prepare(val_ds)
 test_ds = prepare(test_ds)
 
+# 모델 훈련
 
+model = tf.keras.Sequential([
+  layers.Conv2D(16, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(32, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Conv2D(64, 3, padding='same', activation='relu'),
+  layers.MaxPooling2D(),
+  layers.Flatten(),
+  layers.Dense(128, activation='relu'),
+  layers.Dense(num_classes)
+])
 
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+              metrics=['accuracy'])
+
+epochs=5
+history = model.fit(
+  train_ds,
+  validation_data=val_ds,
+  epochs=epochs
+)
+
+loss, acc = model.evaluate(test_ds)
+print("Accuracy", acc)
+
+#사용자 정의 데이터 증강
+
+def random_invert_img(x, p=0.5):
+    if tf.random.uniform([]) < p :
+        x = (255-x)
+    else:
+        x
+    return x
+
+def random_invert(factor = 0.5):
+    return layers.Lambda(lambda x : random_invert_img(x, factor))
+
+random_invert = random_invert()
+
+plt.figure(figsize=(10,10))
+for i in range(9):
+    augmented_image = random_invert(image)
+    ax = plt.subplot(3,3, i+ 1)
+    plt.imshow(augmented_image[0].numpy().astype("uint8"))
+    plt.axis("off")
+    plt.show()
